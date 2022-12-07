@@ -11,7 +11,7 @@ public class Util {
     private static final String DB_PORT = "3306";
     private static final String DB_NAME = "test1";
     private static final String DB_USER = "root";
-    private static final String DB_PSSWD = "ASDfgh123456";
+    private static final String DB_PASSWD = "¯\\_(ツ)_//¯";
 
     public static Connection getConnection() throws SQLException {
         String url = String.format(
@@ -21,6 +21,6 @@ public class Util {
                 DB_ADDR,
                 DB_PORT,
                 DB_NAME);
-        return DriverManager.getConnection(url, DB_USER, DB_PSSWD);
+        return DriverManager.getConnection(url, DB_USER, DB_PASSWD);
     }
 }

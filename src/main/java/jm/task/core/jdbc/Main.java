@@ -2,16 +2,18 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import jm.task.core.jdbc.util.Util;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
         UserService service = new UserServiceImpl();
-        service.saveUser("Sam", "Vodka", (byte) 99);
-        service.saveUser("Sam", "Putin", (byte) 99);
-        System.out.println(service.getAllUsers());
+        service.createUsersTable();
+        for (int i = 1; i < 5; i++) {
+            service.saveUser("Name" + i, "LastName" + i, (byte) i);
+            System.out.println("User с именем – Name" + i + " добавлен в базу данных");
+        }
+        service.getAllUsers();
+        service.cleanUsersTable();
+        service.dropUsersTable();
+
     }
 }
