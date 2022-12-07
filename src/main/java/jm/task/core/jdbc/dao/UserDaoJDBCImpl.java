@@ -16,7 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = getConnection()) {
             String req =
                     "CREATE TABLE IF NOT EXISTS User (" +
-                    "  `id` INT NOT NULL AUTO_INCREMENT, " +
+                    "  `id` BIGINT NOT NULL AUTO_INCREMENT, " +
                     "  `name` VARCHAR(256) NULL, " +
                     "  `lastName` VARCHAR(256) NULL, " +
                     "  `age` INT(3) NULL, " +
