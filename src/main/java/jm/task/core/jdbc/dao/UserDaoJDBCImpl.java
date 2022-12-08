@@ -9,8 +9,6 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private Connection connection;
-
     private static final String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS User (" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT, " +
@@ -23,9 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
     private static final String SQL_DELETE_BY_ID = "DELETE FROM User WHERE id = ?";
     private static final String SQL_GET_ALL = "SELECT * FROM User";
     private static final String SQL_TRUCATE = "TRUNCATE TABLE User";
-
-
-
+    private Connection connection;
     public UserDaoJDBCImpl() {
     }
 
