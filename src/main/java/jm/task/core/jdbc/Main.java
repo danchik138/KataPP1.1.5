@@ -14,6 +14,5 @@ public class Main {
         service.getAllUsers();
         service.cleanUsersTable();
         service.dropUsersTable();
-
     }
 }
