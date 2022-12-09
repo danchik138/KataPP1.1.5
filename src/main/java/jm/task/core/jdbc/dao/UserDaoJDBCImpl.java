@@ -9,18 +9,18 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private static final String SQL_CREATE_TABLE =
+    protected static final String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS User (" +
             "  `id` BIGINT NOT NULL AUTO_INCREMENT, " +
             "  `name` VARCHAR(256) NULL, " +
             "  `lastName` VARCHAR(256) NULL, " +
             "  `age` INT(3) NULL, " +
             "  PRIMARY KEY (`id`));";
-    private static final String SQL_INSERT_USER = "INSERT INTO User (name, lastName, age) VALUES (?, ?, ?);";
-    private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS User";
-    private static final String SQL_DELETE_BY_ID = "DELETE FROM User WHERE id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM User";
-    private static final String SQL_TRUCATE = "TRUNCATE TABLE User";
+    protected static final String SQL_INSERT_USER = "INSERT INTO User (name, lastName, age) VALUES (?, ?, ?);";
+    protected static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS User";
+    protected static final String SQL_DELETE_BY_ID = "DELETE FROM User WHERE id = ?";
+    protected static final String SQL_GET_ALL = "SELECT * FROM User";
+    protected static final String SQL_TRUCATE = "TRUNCATE TABLE User";
     private Connection connection;
     public UserDaoJDBCImpl() {
     }
