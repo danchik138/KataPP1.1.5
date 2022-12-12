@@ -14,7 +14,7 @@ import java.util.Properties;
 public class Util {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/test1";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWD = "¯\\_(ツ)_//¯";
+    private static final String DB_PASSWD = "\\_(ツ)_//¯";
 
     private static final String HB_DIALECT = "org.hibernate.dialect.MySQLDialect";
     private static final String HB_DRIVER = "com.mysql.cj.jdbc.Driver";
