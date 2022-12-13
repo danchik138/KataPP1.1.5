@@ -12,59 +12,110 @@ import static jm.task.core.jdbc.dao.UserDaoJDBCImpl.*;
 
 public class UserDaoHibernateImpl implements UserDao {
 
-    private Session session;
-    private Transaction transaction;
-
     private SessionFactory sessionFactory = getSessionFactory();
 
     public UserDaoHibernateImpl() {
 
     }
 
-    private void getCurrentSessionAndBeginTransaction() {
-        session = sessionFactory.getCurrentSession();
-        transaction = session.beginTransaction();
-    }
-
 
     @Override
     public void createUsersTable() {
-        getCurrentSessionAndBeginTransaction();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         session.createNativeMutationQuery(SQL_CREATE_TABLE).executeUpdate();
         transaction.commit();
+
     }
 
     @Override
     public void dropUsersTable() {
-        getCurrentSessionAndBeginTransaction();
-        session.createNativeMutationQuery(SQL_DROP_TABLE).executeUpdate();
-        transaction.commit();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.createNativeMutationQuery(SQL_DROP_TABLE).executeUpdate();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            if (session != null) {
+                session.close();
+            }
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        getCurrentSessionAndBeginTransaction();
-        User temp = new User(name, lastName, age);
-        session.persist(temp);
-        transaction.commit();
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            User temp = new User(name, lastName, age);
+            session.persist(temp);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            if (session != null) {
+                session.close();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void removeUserById(long id) {
-        getCurrentSessionAndBeginTransaction();
-        User temp = session.get(User.class, id);
-        if (temp != null) {
-            session.remove(temp);
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            User temp = session.get(User.class, id);
+            if (temp != null) {
+                session.remove(temp);
+            }
+            transaction.commit();
         }
-        transaction.commit();
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            if (session != null) {
+                session.close();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> result;
-        getCurrentSessionAndBeginTransaction();
-        result = session.createQuery("from User", User.class).list();
-        transaction.commit();
+        List<User> result = null;
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            result = session.createQuery("from User", User.class).list();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            if (session != null) {
+                session.close();
+            }
+            e.printStackTrace();
+        }
         return result;
     }
 
