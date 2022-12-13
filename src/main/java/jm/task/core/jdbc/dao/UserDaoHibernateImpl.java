@@ -21,10 +21,19 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.createNativeMutationQuery(SQL_CREATE_TABLE).executeUpdate();
-        transaction.commit();
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            session.createNativeMutationQuery(SQL_CREATE_TABLE).executeUpdate();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (session != null) {
+                session.close();
+            }
+            e.printStackTrace();
+        }
 
     }
 
